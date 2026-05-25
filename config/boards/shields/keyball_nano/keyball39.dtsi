@@ -1,5 +1,8 @@
-#include <dt-bindings/zmk/matrix_transform.h>
 #include <physical_layouts.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
+#include <dt-bindings/zmk/matrix_transform.h>
 
 / {
     chosen {
@@ -121,5 +124,13 @@
         com-sequential;
         inversion-on;
         prechargep = <0x22>;
+    };
+};
+
+&spi1 {
+    trackball: trackball@0 {
+        compatible = "pixart,pmw3610";
+        reg = <0>;
+        status = "disabled";
     };
 };
