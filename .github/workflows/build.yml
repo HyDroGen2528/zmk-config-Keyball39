@@ -7,10 +7,6 @@ on:
       - dya
   pull_request:
   workflow_dispatch:
-    inputs:
-      release:
-        description: "Create a release artifact with given version"
-        required: true
 
 jobs:
   build:
@@ -21,6 +17,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Cache west modules
         uses: actions/cache@v4
         continue-on-error: true
@@ -31,12 +28,15 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('config/west*.yml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache_name }}-
+
       - name: Init
         run: |
           git config --global --add safe.directory ${{ github.workspace }}
           make init-standalone
+
       - name: Build
         run: make build-all
+
       - name: Copy artifacts
         shell: sh -x {0}
         run: |
@@ -53,26 +53,3 @@ jobs:
         with:
           name: keyball39
           path: artifacts
-  release:
-    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.release != '' }}
-    needs: build
-    runs-on: ubuntu-latest
-    name: Release
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: keyball39
-          path: artifacts
-      - name: Create release
-        run: |
-          gh release create ${{ github.event.inputs.release }} \
-            --title "Keyball39 firmware ${{ github.event.inputs.release }}" \
-            --generate-notes \
-            --latest \
-            --target ${{ github.sha }} \
-            artifacts/*.uf2
-        env:
-          GH_TOKEN: ${{ github.token }}
