@@ -11,8 +11,6 @@
 #include <dt-bindings/zmk/runtime_input_processor.h>
 #include <dt-bindings/input/input-event-codes.h>
 
-&nice_view_spi { cs-gpios = <&pro_micro 1 GPIO_ACTIVE_HIGH>; };
-
 #include <behaviors/runtime-input-processor.dtsi>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
@@ -173,21 +171,6 @@
             >;
         };
     };
-};
-
-&mouse_runtime_input_processor {
-    temp-layer-enabled;
-    temp-layer = <4>;
-    temp-layer-activation-delay-ms = <200>;
-    temp-layer-deactivation-delay-ms = <400>;
-};
-
-&scroll_runtime_input_processor {
-    active-layers = <BIT(5)>;
-    x-codes = <INPUT_REL_X>;
-    y-codes = <INPUT_REL_Y>;
-    xy-to-scroll-enabled;
-    axis-snap-threshold = <100>;
 };
 
 &trackball { cpi = <800>; };
