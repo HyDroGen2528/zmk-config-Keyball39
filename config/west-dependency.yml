@@ -6,6 +6,8 @@ manifest:
   remotes:
     - name: cormoran
       url-base: https://github.com/cormoran
+    - name: carrefinho
+      url-base: https://github.com/carrefinho
   projects:
     - name: zmk-west-commands
       import: true
@@ -50,5 +52,8 @@ manifest:
       revision: zmk-v0.3.0.0
     - name: zmk-behavior-runtime-sensor-rotate
     - name: zmk-module-settings-rpc
+    - name: prospector-zmk-module
+      remote: carrefinho
+      revision: main
   self:
     path: config
