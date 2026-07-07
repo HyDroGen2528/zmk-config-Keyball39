@@ -37,15 +37,16 @@
 	trackball_listener {
 		compatible = "zmk,input-listener";
 		device = <&trackball_split>;
+		input-processors = <&mouse_runtime_input_processor>;
 
 		scroll_slow {
 			layers = <5>;
-			input-processors = <&zip_xy_to_scroll_mapper &zip_scroll_scaler 1 2>;
+			input-processors = <&zip_xy_to_scroll_mapper &scroll_runtime_input_processor>;
 		};
 
 		snipe {
 			layers = <6>;
-			input-processors = <&zip_xy_scaler 1 2>;
+			input-processors = <&zip_xy_scaler 1 2 &mouse_runtime_input_processor>;
 		};
 	};
 
